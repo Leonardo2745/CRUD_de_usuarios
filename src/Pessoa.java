@@ -2,38 +2,36 @@ import java.util.Date;
 
 public class Pessoa {
 
-    //Atributos com visibilidade privada
+    //ATRIBUTOS COM VISIBILIDADE PRIVADA
     private String nome;
     private String sobrenome;
     private Date dataNascimento;
+    private int idade;
     private int telefone;
     private char sexo;
     private String endereco;
-    private int idade;
 
-    //Construtores
-    public Pessoa() {
+    //CONSTRUTORES
+    public Pessoa(){
         this.nome = "";
         this.sobrenome = "";
+        this.idade = 0;
         this.dataNascimento = new Date();
         this.telefone = 0;
         this.sexo = ' ';
         this.endereco = "";
-        this.idade = 0;
     }
 
-    public Pessoa(String nome, String sobrenome, Date dataNascimento, int telefone, char sexo, String endereco, int idade) {
+    public Pessoa( String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco){
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.dataNascimento = dataNascimento;
+        this.dataNascimento = dataNasc;
         this.telefone = telefone;
         this.sexo = sexo;
         this.endereco = endereco;
-        this.idade = idade;
     }
+    //GETTES E SETTERS (ENCAPSULAMENTO)
 
-
-    //GETS AND SETS
     public String getNome() {
         return nome;
     }
@@ -82,27 +80,24 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    //Métodos
+    //MÉTODOS DA CLASSE
 
     public int getIdade(){
         Date currentDate = new Date();
-        this.idade = currentDate.getYear()- this.dataNascimento.getYear();
+        this.idade = currentDate.getYear() - this.dataNascimento.getYear();
         return this.idade;
     }
 
     public String getFullSexo(){
-        if (this.sexo == 'M' || this.sexo == 'm') {
+        if (this.sexo == 'M' || this.sexo == 'm')
             return "Masculino";
-        }else if(this.sexo == 'F' || this.sexo == 'f'){
+        else if(this.sexo == 'F' || this.sexo == 'f')
             return "Feminino";
-        } else{
+        else
             return "";
-        }
     }
 
     public String info(){
-        return nome + " " + sobrenome + " | " + getIdade() + " anos !" + telefone +
-                " | " + getFullSexo() + "\n" + endereco;
-
+        return nome + " " + sobrenome + " | " + getIdade() + " anos | " + telefone + " | " + getFullSexo() + "\n" + endereco;
     }
 }

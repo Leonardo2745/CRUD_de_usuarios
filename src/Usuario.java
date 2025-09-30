@@ -1,20 +1,19 @@
 import java.util.Date;
 
 public class Usuario extends Pessoa{
-
     private String login;
     private String senha;
     private String email;
 
-    public Usuario(){
+    public Usuario() {
         super();
         this.login = "";
         this.senha = "";
         this.email = "";
     }
 
-    public Usuario(String nome, String sobrenome, Date dataNascimento, int telefone, char sexo, String endereco, int idade, String login, String senha, String email) {
-        super(nome, sobrenome, dataNascimento, telefone, sexo, endereco, idade);
+    public Usuario(String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco, String login, String senha, String email) {
+        super(nome, sobrenome, dataNasc, telefone, sexo, endereco);
         this.login = login;
         this.senha = senha;
         this.email = email;
@@ -28,7 +27,7 @@ public class Usuario extends Pessoa{
         this.login = login;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(String senha){
         this.senha = senha;
     }
 
@@ -40,13 +39,12 @@ public class Usuario extends Pessoa{
         this.email = email;
     }
 
-    public boolean passwordIsEqual(String senha){
+    public boolean isEqual(String senha){
         return senha.equals(this.senha);
     }
 
     public String info(){
-        return "Dados do Usuário: \n" + super.info() + "\n" + this.email + "\n" + "Username: " + this.login;
+        return "Dados do Usuário: \n" +
+                super.info() + "\n" + this.email + "\n" + "Username: " + this.login;
     }
-
-
 }
