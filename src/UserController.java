@@ -38,13 +38,13 @@ public class UserController {
     }
 
     public void cadastrarUsuario(Usuario novoUsuario){
-        this.usuarios.add(inputUsuario());
+        this.usuarios.add(novoUsuario);
     }
 
     public void listarUsuarios(){
         System.out.println("#### LISTA DE USUÁRIOS ####");
         for (int i = 0; i < usuarios.size(); i++) {
-            System.out.println(usuarios.get(i).info());
+            System.out.println(usuarios.get(i).info() + "\n");
         }
     }
 }

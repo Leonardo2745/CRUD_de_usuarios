@@ -44,7 +44,7 @@ public class Usuario extends Pessoa{
     }
 
     public String info(){
-        return "Dados do Usuário: \n" +
-                super.info() + "\n" + this.email + "\n" + "Username: " + this.login;
+        return "Dados do Usuário: " +
+                super.info() + " | " + this.email + " | " + "Username: " + this.login;
     }
 }
