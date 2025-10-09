@@ -1,5 +1,4 @@
 package com.ladc.crud_de_usuarios.model;
-
 import java.util.Date;
 
 public class Pessoa {
@@ -9,22 +8,32 @@ public class Pessoa {
     private String sobrenome;
     private Date dataNascimento;
     private int idade;
-    private int telefone;
+    private String telefone;
     private char sexo;
     private String endereco;
 
     //CONSTRUTORES
-    public Pessoa(){
+    public Pessoa() {
         this.nome = "";
         this.sobrenome = "";
         this.idade = 0;
         this.dataNascimento = new Date();
-        this.telefone = 0;
+        this.telefone = "";
         this.sexo = ' ';
         this.endereco = "";
     }
 
-    public Pessoa( String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco){
+    public Pessoa(String nome, Date dataNascimento) {
+        this.nome = nome;
+        this.sobrenome = "";
+        this.idade = 0;
+        this.dataNascimento = dataNascimento;
+        this.telefone = "";
+        this.sexo = ' ';
+        this.endereco = "";
+    }
+
+    public Pessoa(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNasc;
@@ -58,11 +67,11 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -84,22 +93,5 @@ public class Pessoa {
 
     //MÉTODOS DA CLASSE
 
-    public int getIdade(){
-        Date currentDate = new Date();
-        this.idade = currentDate.getYear() - this.dataNascimento.getYear();
-        return this.idade;
-    }
 
-    public String getFullSexo(){
-        if (this.sexo == 'M' || this.sexo == 'm')
-            return "Masculino";
-        else if(this.sexo == 'F' || this.sexo == 'f')
-            return "Feminino";
-        else
-            return "";
-    }
-
-    public String info(){
-        return nome + " " + sobrenome + " | " + getIdade() + " anos | " + telefone + " | " + getFullSexo() + "\n" + endereco;
-    }
 }

@@ -1,5 +1,4 @@
 package com.ladc.crud_de_usuarios.model;
-
 import java.util.Date;
 
 public class Usuario extends Pessoa{
@@ -14,7 +13,14 @@ public class Usuario extends Pessoa{
         this.email = "";
     }
 
-    public Usuario(String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco, String login, String senha, String email) {
+    public Usuario(String nome, Date dataNasc) {
+        super(nome, dataNasc);
+        this.login = "";
+        this.senha = "";
+        this.email = "";
+    }
+
+    public Usuario(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco, String login, String senha, String email) {
         super(nome, sobrenome, dataNasc, telefone, sexo, endereco);
         this.login = login;
         this.senha = senha;
@@ -45,8 +51,5 @@ public class Usuario extends Pessoa{
         return senha.equals(this.senha);
     }
 
-    public String info(){
-        return "Dados do Usuário: " +
-                super.info() + " | " + this.email + " | " + "Username: " + this.login;
     }
 }

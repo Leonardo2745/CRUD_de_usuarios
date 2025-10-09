@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.Priority?>
 
-<VBox alignment="CENTER" prefHeight="480.0" prefWidth="640.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ladc.crud_de_usuarios.controller.UserListController">
+<VBox alignment="CENTER" prefHeight="408.0" prefWidth="589.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ladc.crud_de_usuarios.controller.UserListController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -25,6 +24,12 @@
         <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email" />
         <TableColumn fx:id="colAcoes" minWidth="120.0" text="Ações" />
     </columns>
+      <VBox.margin>
+         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+      </VBox.margin>
+      <padding>
+         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+      </padding>
     </TableView>
     <Button mnemonicParsing="false" onAction="#handleAdicionarUsuario" text="Adicionar Usuário" />
 
