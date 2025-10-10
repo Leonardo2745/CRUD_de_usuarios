@@ -91,7 +91,4 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    //MÉTODOS DA CLASSE
-
-
 }

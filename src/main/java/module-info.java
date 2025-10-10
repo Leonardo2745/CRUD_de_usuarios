@@ -1,4 +1,4 @@
-module com.ladc.crud_de_usuarios{
+module com.ladc.crud_de_usuarios {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

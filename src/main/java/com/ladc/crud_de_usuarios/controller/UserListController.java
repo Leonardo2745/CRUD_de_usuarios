@@ -13,28 +13,21 @@ public class UserListController {
 
     @FXML
     private TableView<Usuario> tableView;
-
     @FXML
     private TableColumn<Usuario, String> colName;
-
     @FXML
     private TableColumn<Usuario, String> colSobrenome;
-
     @FXML
     private TableColumn<Usuario, String> colEmail;
-
     @FXML
     private TableColumn<Usuario, String> colTelefone;
-
     @FXML
     private TableColumn<Usuario, String> colLogin;
-
     @FXML
-    private TableColumn<Usuario, String> colAcoes;
+    private TableColumn<Usuario, Void> colAcoes;
 
     @FXML
     private Label statusLabel;
-
     @FXML
     private Button syncButton;
 
@@ -49,7 +42,6 @@ public class UserListController {
     public void atualizarStatusConexao(){
 
     }
-
     @FXML
     public void handleSincronizar(){
 
@@ -71,4 +63,5 @@ public class UserListController {
     public void abrirFormularioUsuario(){
 
     }
+
 }
