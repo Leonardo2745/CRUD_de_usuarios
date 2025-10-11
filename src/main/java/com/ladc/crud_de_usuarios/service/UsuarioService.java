@@ -2,6 +2,7 @@ package com.ladc.crud_de_usuarios.service;
 
 import com.ladc.crud_de_usuarios.model.Usuario;
 
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,10 @@ public class UsuarioService {
     public static final List<Usuario> usuarios = new ArrayList<>();
     public static boolean dbloaded = false;
 
+    public boolean isDbloaded(){
+        return dbloaded;
+    }
+
     public UsuarioService(){
         if(!dbloaded){
             carregarUsuarioDoBanco();
@@ -24,23 +29,30 @@ public class UsuarioService {
     public void carregarUsuarioDoBanco(){
         usuarios.clear();
         String sql = "SELECT * FROM usuarios";
-        try(Connection conn = DatabaseService.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();){
-            while (rs.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(rs.getInt("id"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setSobrenome(rs.getString("sobrenome"));
-                usuario.setEmail(rs.getString("email"));
-                usuario.setLogin(rs.getString("login"));
-                usuario.setDataNascimento(rs.getDate("dataNascimento"));
-                usuario.setTelefone(rs.getString("telefone"));
-                usuario.setSexo(rs.getString("sexo") != null ? rs.getString("sexo").charAt(0):' ');
-                usuario.setEndereco(rs.getString("endereco"));
-                usuarios.add(usuario);
+        if (!DatabaseService.testarConexao()){
+            System.out.println("Conexão: offline");
+        }else{
+            try(Connection conn = DatabaseService.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();){
+                while (rs.next()){
+                    Usuario usuario = new Usuario();
+                    usuario.setId(rs.getInt("id"));
+                    usuario.setNome(rs.getString("nome"));
+                    usuario.setSobrenome(rs.getString("sobrenome"));
+                    usuario.setEmail(rs.getString("email"));
+                    usuario.setLogin(rs.getString("login"));
+                    usuario.setDataNascimento(rs.getDate("dataNascimento"));
+                    usuario.setTelefone(rs.getString("telefone"));
+                    usuario.setSexo(rs.getString("sexo") != null ? rs.getString("sexo").charAt(0):' ');
+                    usuario.setEndereco(rs.getString("endereco"));
+                    usuarios.add(usuario);
+                }
+            } catch (SQLException e){
+                throw new ConnectException("Erro da conexão");
             }
-        } catch (SQLException e){}
+        }
+
     }
     public List<Usuario> listarUsuarios(){return usuarios;}
 }
