@@ -49,10 +49,12 @@ public class UsuarioService {
                     usuarios.add(usuario);
                 }
             } catch (SQLException e){
-                throw new ConnectException("Erro da conexão");
             }
         }
 
     }
     public List<Usuario> listarUsuarios(){return usuarios;}
+
+    public void excluirUsuario(Usuario usuario) {
+    }
 }
