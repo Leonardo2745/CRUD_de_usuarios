@@ -2,12 +2,15 @@ package com.ladc.crud_de_usuarios.controller;
 
 import com.ladc.crud_de_usuarios.model.Usuario;
 import com.ladc.crud_de_usuarios.service.UsuarioService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.time.ZoneId;
 
 public class UserFormController {
 
@@ -34,9 +37,37 @@ public class UserFormController {
     private Usuario usuario;
     private UsuarioService usuarioService;
 
-    public void initialize(){    }
-    public void setStage(Stage stage){    }
-    public void setUsuario(Usuario usuario){    }
+
+    public void initialize(){
+        usuarioService = new UsuarioService();
+        sexoChoiceBox.setItems(FXCollections.observableArrayList("Masculino","Feminino"));
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
+
+        if (usuario != null){
+            titleLabel.setText("Editar Usuário");
+            nomeField.setText(usuario.getNome());
+            sobrenomeField.setText(usuario.getSobrenome());
+            emailField.setText(usuario.getEmail());
+            loginField.setText(usuario.getLogin());
+            if(usuario.getDataNascimento() != null){
+                dataNascimentoPicker.setValue(usuario.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+            }
+            telefoneField.setText(usuario.getTelefone());
+            sexoChoiceBox.setValue(usuario.getSexo() == 'M'?"Masculino":"Feminino");
+            enderecoField.setText(usuario.getEndereco());
+        } else {
+            titleLabel.setText("Adicionar Usuário");
+        }
+    }
+
     @FXML
     public void handleSalvar(){    }
 
