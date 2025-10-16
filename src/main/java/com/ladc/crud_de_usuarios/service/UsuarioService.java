@@ -132,7 +132,7 @@ public class UsuarioService {
                         stmt.setString(1,user.getNome());
                         stmt.setString(2,user.getSobrenome());
                         stmt.setString(3,user.getEmail());
-                        stmt.setString(4,user.getLogin();
+                        stmt.setString(4,user.getLogin());
                         stmt.executeUpdate();
                         okCount++;
                     }
