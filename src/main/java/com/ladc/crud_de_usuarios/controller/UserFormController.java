@@ -4,6 +4,7 @@ import com.ladc.crud_de_usuarios.model.Usuario;
 import com.ladc.crud_de_usuarios.service.UsuarioService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.time.ZoneId;
+import java.util.Date;
 
 public class UserFormController {
 
@@ -69,7 +71,30 @@ public class UserFormController {
     }
 
     @FXML
-    public void handleSalvar(){    }
+    public void handleSalvar(){
+        boolean isNew = (usuario == null);
+        if(isNew){
+            usuario = new Usuario();
+        }
+        usuario.setNome(nomeField.getText());
+        usuario.setSobrenome(sobrenomeField.getText());
+        usuario.setEmail(emailField.getText());
+        usuario.setLogin(loginField.getText());
+        if(dataNascimentoPicker.getValue() != null){
+            usuario.setDataNascimento(Date.from(dataNascimentoPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+        usuario.setTelefone(telefoneField.getText());
+        usuario.setEndereco(enderecoField.getText());
+        if(sexoChoiceBox.getValue() != null){
+            usuario.setSexo(sexoChoiceBox.getValue().equals("Masculino")?'M':'F');
+        }
+        if(isNew){
+            usuarioService.adicionarUsuario(usuario);
+
+        }else{
+            usuarioService.atualizarUsuario(usuario);
+        }
+    }
 
 
 }
