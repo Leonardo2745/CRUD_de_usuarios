@@ -9,7 +9,7 @@ public class Pessoa {
     //ATRIBUTOS COM VISIBILIDADE PRIVADA
     private String nome;
     private String sobrenome;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private int idade;
     private String telefone;
     private char sexo;
@@ -20,13 +20,13 @@ public class Pessoa {
         this.nome = "";
         this.sobrenome = "";
         this.idade = 0;
-        this.dataNascimento = new Date();
+        this.dataNascimento = LocalDate.now();
         this.telefone = "";
         this.sexo = ' ';
         this.endereco = "";
     }
 
-    public Pessoa(String nome, Date dataNascimento) {
+    public Pessoa(String nome, LocalDate dataNascimento) {
         this.nome = nome;
         this.sobrenome = "";
         this.idade = 0;
@@ -36,7 +36,7 @@ public class Pessoa {
         this.endereco = "";
     }
 
-    public Pessoa(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco) {
+    public Pessoa(String nome, String sobrenome, LocalDate dataNasc, String telefone, char sexo, String endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNasc;
@@ -62,11 +62,11 @@ public class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -97,11 +97,10 @@ public class Pessoa {
         return idade;
     }
 
-    public void setIdade(){
+    public void setIdade() {
         boolean isNull = !(this.dataNascimento == null);
-        LocalDate dataNasc = isNull ? this.dataNascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : LocalDate.now();
+        LocalDate dataNasc = isNull ? this.dataNascimento : LocalDate.now();
         LocalDate dataAtual = LocalDate.now();
-
         this.idade = Period.between(dataNasc, dataAtual).getYears();
     }
 }
