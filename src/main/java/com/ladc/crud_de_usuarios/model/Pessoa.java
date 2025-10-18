@@ -1,4 +1,7 @@
 package com.ladc.crud_de_usuarios.model;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Pessoa {
@@ -90,5 +93,15 @@ public class Pessoa {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+    public int getIdade() {
+        return idade;
+    }
 
+    public void setIdade(){
+        boolean isNull = !(this.dataNascimento == null);
+        LocalDate dataNasc = isNull ? this.dataNascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : LocalDate.now();
+        LocalDate dataAtual = LocalDate.now();
+
+        this.idade = Period.between(dataNasc, dataAtual).getYears();
+    }
 }

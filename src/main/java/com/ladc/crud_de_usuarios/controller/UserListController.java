@@ -23,8 +23,8 @@ public class UserListController {
     private TableView<Usuario> tableView;
     @FXML
     private TableColumn<Usuario, String> colNome;
-//    @FXML
-//    private TableColumn<Usuario, String> colSobrenome;
+     @FXML
+    private TableColumn<Usuario, String> colIdade;
 //    @FXML
 //    private TableColumn<Usuario, String> colEmail;
 //    @FXML
@@ -74,8 +74,8 @@ public class UserListController {
     public void carregarDadosTabela(){
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 //        colSobrenome.setCellValueFactory(new PropertyValueFactory<>("sobrenome"));
-//        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-//        colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+
+     colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
         colLogin.setCellValueFactory(new PropertyValueFactory<>("login"));
 
         obsUsuario = FXCollections.observableArrayList(usuarioService.listarUsuarios());

@@ -64,6 +64,7 @@ public class UsuarioService {
                 usuario.setEmail(rs.getString("email"));
                 usuario.setLogin(rs.getString("login"));
                 usuario.setDataNascimento(rs.getDate("dataNascimento"));
+                usuario.setIdade();
                 usuario.setTelefone(rs.getString("telefone"));
                 usuario.setSexo(rs.getString("sexo") != null ? rs.getString("sexo").charAt(0) : ' ');
                 usuario.setEndereco(rs.getString("endereco"));
