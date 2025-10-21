@@ -23,12 +23,8 @@ public class UserListController {
     private TableView<Usuario> tableView;
     @FXML
     private TableColumn<Usuario, String> colNome;
-     @FXML
+    @FXML
     private TableColumn<Usuario, String> colIdade;
-//    @FXML
-//    private TableColumn<Usuario, String> colEmail;
-//    @FXML
-//    private TableColumn<Usuario, String> colTelefone;
     @FXML
     private TableColumn<Usuario, String> colLogin;
     @FXML
@@ -40,7 +36,7 @@ public class UserListController {
     private Button syncButton;
 
     private UsuarioService usuarioService;
-    private ObservableList<Usuario> obsUsuario;
+    private ObservableList<Usuario> obsUsuarios;
 
 
     public void initialize(){
@@ -48,7 +44,7 @@ public class UserListController {
         carregarDadosTabela();
     }
 
-    public void atualizarStatusConexao(){
+    private void atualizarStatusConexao(){
         boolean isConnected = DatabaseService.testarConexao();
         if (isConnected){
             statusLabel.setText("DB Status: connected");
@@ -65,66 +61,71 @@ public class UserListController {
         }
     }
     @FXML
-    public void handleSincronizar(){
+    private void handleSincronizar(){
         usuarioService.sincronizarComBanco();
         carregarDadosTabela();
 
     }
 
-    public void carregarDadosTabela(){
+    private void carregarDadosTabela(){
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-//        colSobrenome.setCellValueFactory(new PropertyValueFactory<>("sobrenome"));
-
-     colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
         colLogin.setCellValueFactory(new PropertyValueFactory<>("login"));
+        colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
 
-        obsUsuario = FXCollections.observableArrayList(usuarioService.listarUsuarios());
-        tableView.setItems(obsUsuario);
+        obsUsuarios = FXCollections.observableArrayList(usuarioService.listarUsuarios());
+        tableView.setItems(obsUsuarios);
         adicionarBotoesDeAcao();
         atualizarStatusConexao();
     }
 
-    public void adicionarBotoesDeAcao(){
-        colAcoes.setCellFactory(pram -> new TableCell<>() {
+    private void adicionarBotoesDeAcao() {
+        colAcoes.setCellFactory(param -> new TableCell<>() {
             private final Button btnEditar = new Button("Editar");
             private final Button btnExcluir = new Button("Excluir");
-            private final HBox panel = new HBox(5,btnEditar,btnExcluir);
+            private final HBox pane = new HBox(5, btnEditar, btnExcluir);
+
             {
-                btnEditar.setOnAction(event ->{
+                btnEditar.setOnAction(event -> {
                     Usuario usuario = getTableView().getItems().get(getIndex());
                     abrirFormularioUsuario(usuario);
                 });
-                btnExcluir.setOnAction(event ->{
+                btnExcluir.setOnAction(event -> {
                     Usuario usuario = getTableView().getItems().get(getIndex());
                     usuarioService.excluirUsuario(usuario);
                     carregarDadosTabela();
                 });
             }
+
             @Override
-            protected void updateItem(Void item, boolean empty){
-                super.updateItem(item,empty);
-                setGraphic(empty ? null : panel);
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : pane);
             }
         });
     }
+
     @FXML
-    public void handleAdicionarUsuario() {
+    private void handleAdicionarUsuario() {
         abrirFormularioUsuario(null);
     }
-    public void abrirFormularioUsuario(Usuario usuario){
-        try{
+
+    private void abrirFormularioUsuario(Usuario usuario) {
+        try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("user-form-view.fxml"));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(loader.load()));
+
             UserFormController controller = loader.getController();
             controller.setUsuario(usuario);
             controller.setStage(stage);
+
             stage.showAndWait();
+
             carregarDadosTabela();
-        }catch (IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
